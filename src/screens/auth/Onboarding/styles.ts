@@ -1,35 +1,38 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { COLOR_SCHEME } from '../../../constants/colors';
+
+const { height, width } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   container: {
+    backgroundColor: COLOR_SCHEME.white,
     padding: 48,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 30,
-    backgroundColor: COLOR_SCHEME.white,
-    marginTop: '130%',
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    marginTop: height * 0.6,
   },
   title: {
+    color: COLOR_SCHEME.black,
     fontSize: 22,
     fontWeight: '700',
-    color: COLOR_SCHEME.black,
     textAlign: 'center',
   },
   subtitle: {
-    fontSize: 15,
     color: COLOR_SCHEME.gray,
+    fontSize: 15,
     textAlign: 'center',
     marginTop: 16,
-    maxWidth: '80%',
+    maxWidth: width * 0.65,
   },
   buttonsContainer: {
-    width: '80%',
+    width: width * 0.65,
     marginTop: 40,
   },
   bottomButton: {
-    marginTop: 16,
     backgroundColor: COLOR_SCHEME.blue,
+    marginTop: 16,
   },
   image: {
     width: '100%',

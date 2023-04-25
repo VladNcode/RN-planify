@@ -4,4 +4,6 @@ export const COLOR_SCHEME = {
   white: '#FFFFFF',
   black: '#173147',
   gray: '#8B97A8',
+  darkGray: '#707070',
+  lightGray: '#E7E7E7',
 };
