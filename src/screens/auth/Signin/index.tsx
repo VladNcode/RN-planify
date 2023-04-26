@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, SafeAreaView } from 'react-native';
 
 import { CustomButton } from '../../../components/Button';
 import { FooterLink } from '../../../components/FooterLink';
@@ -7,7 +7,6 @@ import { Input } from '../../../components/Input';
 import { Title } from '../../../components/Title';
 import { styles } from './styles';
 import { SigninNavigationProp } from '../../../constants/navigation.types';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const Signin = React.memo(({ navigation }: { navigation: SigninNavigationProp }) => {
   const onPress = () => {
