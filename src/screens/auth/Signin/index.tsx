@@ -22,8 +22,8 @@ export const Signin = React.memo(({ navigation }: { navigation: SigninNavigation
       <Title text="Welcome back!" />
 
       <View style={styles.inputsContainer}>
-        <Input placeholder="Email" />
-        <Input style={styles.input} placeholder="Password" />
+        <Input keyboardType="email-address" placeholder="Email" />
+        <Input style={styles.input} secureTextEntry placeholder="Password" />
       </View>
 
       <CustomButton style={styles.button} onPress={onPress}>

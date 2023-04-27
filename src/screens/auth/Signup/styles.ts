@@ -15,6 +15,22 @@ export const styles = StyleSheet.create({
   input: {
     marginTop: 24,
   },
+  checkboxContainer: {
+    marginTop: 24,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  checkboxTextContainer: {
+    marginLeft: 15,
+    flexDirection: 'row',
+  },
+  checkboxText: {
+    color: COLOR_SCHEME.gray,
+  },
+  link: {
+    color: COLOR_SCHEME.darkGray,
+    textDecorationLine: 'underline',
+  },
   button: {
     backgroundColor: COLOR_SCHEME.blue,
     marginTop: 24,
