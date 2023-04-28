@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   checkboxTextContainer: {
-    marginLeft: 15,
+    marginLeft: 13,
     flexDirection: 'row',
   },
   checkboxText: {
