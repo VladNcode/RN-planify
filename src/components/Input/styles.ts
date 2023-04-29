@@ -11,4 +11,12 @@ export const styles = StyleSheet.create({
   input: {
     paddingVertical: 0,
   },
+  errorText: {
+    color: 'red',
+    marginTop: 10,
+  },
+  errorBorder: {
+    borderWidth: 1,
+    borderColor: 'red',
+  },
 });

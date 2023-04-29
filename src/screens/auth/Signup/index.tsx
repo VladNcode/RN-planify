@@ -10,10 +10,7 @@ import { Title } from '../../../components/Title';
 import { PRIVACY_POLICY_LINK, TERMS_AND_CONDITIONS_LINK } from '../../../constants/links';
 import { SignupNavigationProp } from '../../../constants/navigation.types';
 import { styles } from './styles';
-
-interface FirebaseAuthError {
-  code: 'auth/email-already-in-use' | 'auth/invalid-email' | 'auth/operation-not-allowed' | 'auth/weak-password';
-}
+import { isFirebaseSignupError } from '../../../constants/firebase.helpers';
 
 interface SignupState {
   firstName: string;
@@ -23,15 +20,6 @@ interface SignupState {
   confirmPassword: string;
 }
 
-const isFirebaseAuthError = (error: any): error is FirebaseAuthError => {
-  return (
-    error.code === 'auth/email-already-in-use' ||
-    error.code === 'auth/invalid-email' ||
-    error.code === 'auth/operation-not-allowed' ||
-    error.code === 'auth/weak-password'
-  );
-};
-
 const fieldValuesMap: Record<keyof SignupState, string> = {
   firstName: 'First name',
   lastName: 'Last name',
@@ -40,18 +28,17 @@ const fieldValuesMap: Record<keyof SignupState, string> = {
   confirmPassword: 'Confirm password',
 };
 
+const initialValues: SignupState = { lastName: '', firstName: '', email: '', password: '', confirmPassword: '' };
+
 export const Signup = React.memo(({ navigation }: { navigation: SignupNavigationProp }) => {
   const [agreed, setAgreed] = useState(false);
-  const [state, setState] = useState<SignupState>({
-    lastName: '',
-    firstName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  });
+  const [state, setState] = useState<SignupState>({ ...initialValues });
+  const [errors, setErrors] = useState<SignupState>({ ...initialValues });
 
   const onChange = (key: string) => (value: string) => {
-    setState(state => ({ ...state, [key]: value }));
+    setState(state => {
+      return { ...state, [key]: value };
+    });
   };
 
   const navigateToSignin = () => {
@@ -64,16 +51,21 @@ export const Signup = React.memo(({ navigation }: { navigation: SignupNavigation
 
   const onSubmit = async () => {
     try {
-      let msg = '';
+      let error = false;
 
-      (Object.keys(state) as (keyof SignupState)[]).forEach(key => {
-        if (!state[key]) msg += `${fieldValuesMap[key]}\n`;
-      });
-
-      if (msg.length) {
-        Alert.alert('Please fill in the following fields:\n\n' + msg.slice(0, -1));
-        return;
+      for (const key in state) {
+        if (!state[key as keyof typeof state]) {
+          setErrors(errors => ({
+            ...errors,
+            [key]: `${fieldValuesMap[key as keyof SignupState]} is a required field`,
+          }));
+          error = true;
+        } else {
+          setErrors(errors => ({ ...errors, [key]: '' }));
+        }
       }
+
+      if (error) return;
 
       if (state.password !== state.confirmPassword) {
         Alert.alert('Passwords do not match');
@@ -86,10 +78,10 @@ export const Signup = React.memo(({ navigation }: { navigation: SignupNavigation
       }
 
       if (state.password === state.confirmPassword && agreed) {
-        const user = await auth().createUserWithEmailAndPassword(state.email, state.password);
+        await auth().createUserWithEmailAndPassword(state.email, state.password);
       }
     } catch (error) {
-      if (isFirebaseAuthError(error)) {
+      if (isFirebaseSignupError(error)) {
         if (error.code === 'auth/email-already-in-use') Alert.alert('Email is already in use');
         if (error.code === 'auth/invalid-email') Alert.alert('Email is invalid');
         if (error.code === 'auth/operation-not-allowed') Alert.alert('Operation is not allowed');
@@ -106,11 +98,29 @@ export const Signup = React.memo(({ navigation }: { navigation: SignupNavigation
       <Title text="Join the hub!" />
 
       <View style={styles.inputsContainer}>
-        <Input onChangeText={onChange('firstName')} placeholder="First Name" />
-        <Input onChangeText={onChange('lastName')} style={styles.input} placeholder="Last Name" />
-        <Input onChangeText={onChange('email')} style={styles.input} keyboardType="email-address" placeholder="Email" />
-        <Input onChangeText={onChange('password')} style={styles.input} secureTextEntry placeholder="Password" />
+        <Input errorText={errors.firstName} onChangeText={onChange('firstName')} placeholder="First Name" />
         <Input
+          errorText={errors.lastName}
+          onChangeText={onChange('lastName')}
+          style={styles.input}
+          placeholder="Last Name"
+        />
+        <Input
+          errorText={errors.email}
+          onChangeText={onChange('email')}
+          style={styles.input}
+          keyboardType="email-address"
+          placeholder="Email"
+        />
+        <Input
+          errorText={errors.password}
+          onChangeText={onChange('password')}
+          style={styles.input}
+          secureTextEntry
+          placeholder="Password"
+        />
+        <Input
+          errorText={errors.confirmPassword}
           onChangeText={onChange('confirmPassword')}
           style={styles.input}
           secureTextEntry
