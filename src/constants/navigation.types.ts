@@ -2,10 +2,10 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 export type RootStackParamsList = {
   Onboarding: undefined;
-  Signin: undefined;
-  Signup: undefined;
+  SignIn: undefined;
+  SignUp: undefined;
 };
 
 export type OnboardingNavigationProp = StackNavigationProp<RootStackParamsList, 'Onboarding'>;
-export type SigninNavigationProp = StackNavigationProp<RootStackParamsList, 'Signin'>;
-export type SignupNavigationProp = StackNavigationProp<RootStackParamsList, 'Signup'>;
+export type SignInNavigationProp = StackNavigationProp<RootStackParamsList, 'SignIn'>;
+export type SignUpNavigationProp = StackNavigationProp<RootStackParamsList, 'SignUp'>;

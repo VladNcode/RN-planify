@@ -8,11 +8,11 @@ import { FooterLink } from '../../../components/FooterLink';
 import { Input } from '../../../components/Input';
 import { Title } from '../../../components/Title';
 import { PRIVACY_POLICY_LINK, TERMS_AND_CONDITIONS_LINK } from '../../../constants/links';
-import { SignupNavigationProp } from '../../../constants/navigation.types';
+import { SignUpNavigationProp } from '../../../constants/navigation.types';
+import { isFirebaseSignUpError } from '../../../constants/firebase.helpers';
 import { styles } from './styles';
-import { isFirebaseSignupError } from '../../../constants/firebase.helpers';
 
-interface SignupState {
+interface SignUpState {
   firstName: string;
   lastName: string;
   email: string;
@@ -20,7 +20,7 @@ interface SignupState {
   confirmPassword: string;
 }
 
-const fieldValuesMap: Record<keyof SignupState, string> = {
+const fieldValuesMap: Record<keyof SignUpState, string> = {
   firstName: 'First name',
   lastName: 'Last name',
   email: 'Email',
@@ -28,12 +28,12 @@ const fieldValuesMap: Record<keyof SignupState, string> = {
   confirmPassword: 'Confirm password',
 };
 
-const initialValues: SignupState = { lastName: '', firstName: '', email: '', password: '', confirmPassword: '' };
+const initialValues: SignUpState = { lastName: '', firstName: '', email: '', password: '', confirmPassword: '' };
 
-export const Signup = React.memo(({ navigation }: { navigation: SignupNavigationProp }) => {
+export const SignUp = React.memo(({ navigation }: { navigation: SignUpNavigationProp }) => {
   const [agreed, setAgreed] = useState(false);
-  const [state, setState] = useState<SignupState>({ ...initialValues });
-  const [errors, setErrors] = useState<SignupState>({ ...initialValues });
+  const [state, setState] = useState<SignUpState>({ ...initialValues });
+  const [errors, setErrors] = useState<SignUpState>({ ...initialValues });
 
   const onChange = (key: string) => (value: string) => {
     setState(state => {
@@ -41,8 +41,8 @@ export const Signup = React.memo(({ navigation }: { navigation: SignupNavigation
     });
   };
 
-  const navigateToSignin = () => {
-    navigation.navigate('Signin');
+  const navigateToSignIn = () => {
+    navigation.navigate('SignIn');
   };
 
   const onLinkPress = (url: string) => {
@@ -57,7 +57,7 @@ export const Signup = React.memo(({ navigation }: { navigation: SignupNavigation
         if (!state[key as keyof typeof state]) {
           setErrors(errors => ({
             ...errors,
-            [key]: `${fieldValuesMap[key as keyof SignupState]} is a required field`,
+            [key]: `${fieldValuesMap[key as keyof SignUpState]} is a required field`,
           }));
           error = true;
         } else {
@@ -65,7 +65,9 @@ export const Signup = React.memo(({ navigation }: { navigation: SignupNavigation
         }
       }
 
-      if (error) return;
+      if (error) {
+        return;
+      }
 
       if (state.password !== state.confirmPassword) {
         Alert.alert('Passwords do not match');
@@ -85,11 +87,19 @@ export const Signup = React.memo(({ navigation }: { navigation: SignupNavigation
         });
       }
     } catch (error) {
-      if (isFirebaseSignupError(error)) {
-        if (error.code === 'auth/email-already-in-use') Alert.alert('Email is already in use');
-        if (error.code === 'auth/invalid-email') Alert.alert('Email is invalid');
-        if (error.code === 'auth/operation-not-allowed') Alert.alert('Operation is not allowed');
-        if (error.code === 'auth/weak-password') Alert.alert('Password is too weak');
+      if (isFirebaseSignUpError(error)) {
+        if (error.code === 'auth/email-already-in-use') {
+          Alert.alert('Email is already in use');
+        }
+        if (error.code === 'auth/invalid-email') {
+          Alert.alert('Email is invalid');
+        }
+        if (error.code === 'auth/operation-not-allowed') {
+          Alert.alert('Operation is not allowed');
+        }
+        if (error.code === 'auth/weak-password') {
+          Alert.alert('Password is too weak');
+        }
       } else {
         Alert.alert('Something went wrong');
         console.error(error);
@@ -152,7 +162,7 @@ export const Signup = React.memo(({ navigation }: { navigation: SignupNavigation
           Create account
         </CustomButton>
 
-        <FooterLink text="Already registered?" linkText="Sign in!" onPress={navigateToSignin} />
+        <FooterLink text="Already registered?" linkText="Sign in!" onPress={navigateToSignIn} />
       </ScrollView>
     </SafeAreaView>
   );
