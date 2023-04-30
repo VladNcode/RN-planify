@@ -28,11 +28,13 @@ export const Routes = React.memo(() => {
   }, []);
 
   console.log('user :>> ', user);
+
   if (initializing) return null;
+
   if (user)
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Welcome!</Text>
+        <Text>Welcome {user.displayName}!</Text>
         <TouchableOpacity onPress={() => auth().signOut()}>
           <Text style={{ marginTop: 10, fontSize: 25 }}>Sign out</Text>
         </TouchableOpacity>

@@ -1,6 +1,6 @@
 import auth from '@react-native-firebase/auth';
 import React, { useState } from 'react';
-import { Alert, Linking, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Linking, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 import { CustomButton } from '../../../components/Button';
 import { Checkbox } from '../../../components/Checkbox';
@@ -78,7 +78,11 @@ export const Signup = React.memo(({ navigation }: { navigation: SignupNavigation
       }
 
       if (state.password === state.confirmPassword && agreed) {
-        await auth().createUserWithEmailAndPassword(state.email, state.password);
+        const result = await auth().createUserWithEmailAndPassword(state.email, state.password);
+
+        await result.user.updateProfile({
+          displayName: `${state.firstName} ${state.lastName}`,
+        });
       }
     } catch (error) {
       if (isFirebaseSignupError(error)) {
@@ -95,59 +99,61 @@ export const Signup = React.memo(({ navigation }: { navigation: SignupNavigation
 
   return (
     <SafeAreaView style={styles.container}>
-      <Title text="Join the hub!" />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Title text="Join the hub!" />
 
-      <View style={styles.inputsContainer}>
-        <Input errorText={errors.firstName} onChangeText={onChange('firstName')} placeholder="First Name" />
-        <Input
-          errorText={errors.lastName}
-          onChangeText={onChange('lastName')}
-          style={styles.input}
-          placeholder="Last Name"
-        />
-        <Input
-          errorText={errors.email}
-          onChangeText={onChange('email')}
-          style={styles.input}
-          keyboardType="email-address"
-          placeholder="Email"
-        />
-        <Input
-          errorText={errors.password}
-          onChangeText={onChange('password')}
-          style={styles.input}
-          secureTextEntry
-          placeholder="Password"
-        />
-        <Input
-          errorText={errors.confirmPassword}
-          onChangeText={onChange('confirmPassword')}
-          style={styles.input}
-          secureTextEntry
-          placeholder="Confirm Password"
-        />
-      </View>
-
-      <View style={styles.checkboxContainer}>
-        <Checkbox agreed={agreed} setAgreed={setAgreed} />
-
-        <View style={styles.checkboxTextContainer}>
-          <Text style={styles.checkboxText}>I agree to the </Text>
-          <TouchableOpacity onPress={() => onLinkPress(TERMS_AND_CONDITIONS_LINK)}>
-            <Text style={styles.link}>Terms of Service </Text>
-          </TouchableOpacity>
-          <Text style={styles.checkboxText}>and </Text>
-          <TouchableOpacity onPress={() => onLinkPress(PRIVACY_POLICY_LINK)}>
-            <Text style={styles.link}>Privacy Policy</Text>
-          </TouchableOpacity>
+        <View style={styles.inputsContainer}>
+          <Input errorText={errors.firstName} onChangeText={onChange('firstName')} placeholder="First Name" />
+          <Input
+            errorText={errors.lastName}
+            onChangeText={onChange('lastName')}
+            style={styles.input}
+            placeholder="Last Name"
+          />
+          <Input
+            errorText={errors.email}
+            onChangeText={onChange('email')}
+            style={styles.input}
+            keyboardType="email-address"
+            placeholder="Email"
+          />
+          <Input
+            errorText={errors.password}
+            onChangeText={onChange('password')}
+            style={styles.input}
+            secureTextEntry
+            placeholder="Password"
+          />
+          <Input
+            errorText={errors.confirmPassword}
+            onChangeText={onChange('confirmPassword')}
+            style={styles.input}
+            secureTextEntry
+            placeholder="Confirm Password"
+          />
         </View>
-      </View>
 
-      <CustomButton style={styles.button} onPress={onSubmit}>
-        Create account
-      </CustomButton>
+        <View style={styles.checkboxContainer}>
+          <Checkbox agreed={agreed} setAgreed={setAgreed} />
 
-      <FooterLink text="Already registered?" linkText="Sign in!" onPress={navigateToSignin} />
+          <View style={styles.checkboxTextContainer}>
+            <Text style={styles.checkboxText}>I agree to the </Text>
+            <TouchableOpacity onPress={() => onLinkPress(TERMS_AND_CONDITIONS_LINK)}>
+              <Text style={styles.link}>Terms of Service </Text>
+            </TouchableOpacity>
+            <Text style={styles.checkboxText}>and </Text>
+            <TouchableOpacity onPress={() => onLinkPress(PRIVACY_POLICY_LINK)}>
+              <Text style={styles.link}>Privacy Policy</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <CustomButton style={styles.button} onPress={onSubmit}>
+          Create account
+        </CustomButton>
+
+        <FooterLink text="Already registered?" linkText="Sign in!" onPress={navigateToSignin} />
+      </ScrollView>
     </SafeAreaView>
   );
 });
