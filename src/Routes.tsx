@@ -1,19 +1,25 @@
 import 'react-native-gesture-handler';
 
-import { createDrawerNavigator } from '@react-navigation/drawer';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
-import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createStackNavigator } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
+import { Image, StyleSheet } from 'react-native';
 
-import { RootTabParamsList, RootStackParamsList, RootDrawerParamsList } from './constants/navigation.types';
+import { CustomDrawerContent } from './components/DrawerContent';
+import {
+  CustomDrawerContentType,
+  RootDrawerParamsList,
+  RootStackParamsList,
+  RootTabParamsList,
+} from './constants/navigation.types';
+import { AddTask } from './screens/app/AddTask';
+import { Home } from './screens/app/Home';
+import { Tasks } from './screens/app/Tasks';
 import { Onboarding } from './screens/auth/Onboarding';
 import { SignIn } from './screens/auth/SignIn';
-
 import { SignUp } from './screens/auth/SignUp';
-import { Home } from './screens/app/Home';
-import { AddTask } from './screens/app/AddTask';
-import { Tasks } from './screens/app/Tasks';
 
 const Stack = createStackNavigator<RootStackParamsList>();
 const Drawer = createDrawerNavigator<RootDrawerParamsList>();
@@ -24,7 +30,7 @@ export const Routes = React.memo(() => {
   const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
 
   // Handle user state changes
-  const onAuthStateChanged = (user: any) => {
+  const onAuthStateChanged = (user: FirebaseAuthTypes.User | null) => {
     setUser(user);
     if (initializing) {
       setInitializing(false);
@@ -41,27 +47,40 @@ export const Routes = React.memo(() => {
     return null;
   }
 
-  // if (user) {
-  //   return (
-  //     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-  //       <Text>Welcome {user.displayName}!</Text>
-  //       <TouchableOpacity onPress={() => auth().signOut()}>
-  //         <Text style={{ marginTop: 10, fontSize: 25 }}>Sign out</Text>
-  //       </TouchableOpacity>
-  //     </View>
-  //   );
-  // }
-
   const Tabs = () => (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Tasks" component={Tasks} />
+    <Tab.Navigator screenOptions={{ tabBarShowLabel: false, headerShown: false }}>
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Image
+              style={styles.tabIcons}
+              source={focused ? require('./assets/homeActive.png') : require('./assets/home.png')}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Tasks"
+        component={Tasks}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Image
+              style={styles.tabIcons}
+              source={focused ? require('./assets/calendarActive.png') : require('./assets/calendar.png')}
+            />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 
   if (user) {
     return (
-      <Drawer.Navigator>
+      <Drawer.Navigator
+        screenOptions={{ headerShown: false }}
+        drawerContent={props => <CustomDrawerContent {...(props as unknown as CustomDrawerContentType)} />}>
         <Drawer.Screen name="Tabs" component={Tabs} />
         <Drawer.Screen name="AddTask" component={AddTask} />
       </Drawer.Navigator>
@@ -75,4 +94,14 @@ export const Routes = React.memo(() => {
       <Stack.Screen name="SignUp" component={SignUp} />
     </Stack.Navigator>
   );
+});
+
+const styles = StyleSheet.create({
+  tabIcons: {
+    width: 20,
+    height: 20,
+  },
+  activeTabIcon: {
+    backgroundColor: 'red',
+  },
 });
