@@ -41,42 +41,45 @@ export const Routes = React.memo(() => {
     return auth().onAuthStateChanged(onAuthStateChanged); // unsubscribe on unmount
   }, []);
 
-  console.log('user :>> ', user);
+  useEffect(() => {
+    return auth().onUserChanged(user => setUser(user));
+  }, []);
 
   if (initializing) {
     return null;
   }
 
-  const Tabs = () => (
-    <Tab.Navigator screenOptions={{ tabBarShowLabel: false, headerShown: false }}>
-      <Tab.Screen
-        name="Home"
-        component={Home}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Image
-              style={styles.tabIcons}
-              source={focused ? require('./assets/homeActive.png') : require('./assets/home.png')}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Tasks"
-        component={Tasks}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Image
-              style={styles.tabIcons}
-              source={focused ? require('./assets/calendarActive.png') : require('./assets/calendar.png')}
-            />
-          ),
-        }}
-      />
-    </Tab.Navigator>
-  );
+  if (user && user.displayName) {
+    const Tabs = () => (
+      <Tab.Navigator screenOptions={{ tabBarShowLabel: false, headerShown: false }}>
+        <Tab.Screen
+          name="Home"
+          component={Home}
+          initialParams={{ user }}
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <Image
+                style={styles.tabIcons}
+                source={focused ? require('./assets/homeActive.png') : require('./assets/home.png')}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Tasks"
+          component={Tasks}
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <Image
+                style={styles.tabIcons}
+                source={focused ? require('./assets/calendarActive.png') : require('./assets/calendar.png')}
+              />
+            ),
+          }}
+        />
+      </Tab.Navigator>
+    );
 
-  if (user) {
     return (
       <Drawer.Navigator
         screenOptions={{ headerShown: false }}
