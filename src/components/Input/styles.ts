@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+
 import { COLOR_SCHEME } from '../../constants/colors';
 
 export const styles = StyleSheet.create({
@@ -10,6 +11,7 @@ export const styles = StyleSheet.create({
   },
   input: {
     paddingVertical: 0,
+    color: 'red',
   },
   errorText: {
     color: 'red',
@@ -18,5 +20,10 @@ export const styles = StyleSheet.create({
   errorBorder: {
     borderWidth: 1,
     borderColor: 'red',
+  },
+  outlined: {
+    backgroundColor: COLOR_SCHEME.white,
+    borderWidth: 1,
+    borderColor: COLOR_SCHEME.black,
   },
 });

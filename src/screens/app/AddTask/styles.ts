@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
+
 import { COLOR_SCHEME } from '../../../constants/colors';
 
 const { height, width } = Dimensions.get('window');
@@ -18,5 +19,18 @@ export const styles = StyleSheet.create({
     color: COLOR_SCHEME.black,
     fontWeight: '300',
     marginTop: 42,
+  },
+  inputContainer: {
+    marginTop: 32,
+  },
+  listContainer: {
+    marginTop: 24,
+  },
+  deadlineContainer: {
+    marginTop: 24,
+  },
+  button: {
+    backgroundColor: COLOR_SCHEME.blue,
+    marginTop: 43,
   },
 });

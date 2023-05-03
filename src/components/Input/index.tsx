@@ -10,16 +10,18 @@ interface InputProps extends TextInputProps {
   errorText?: string;
   placeholder?: string;
   onChangeText?: (text: string) => void;
+  type?: 'outlined';
 }
 
 export const Input = React.memo(
-  ({ errorText = '', style = {}, placeholder = 'Search recipe', onChangeText, ...rest }: InputProps) => {
+  ({ errorText = '', style = {}, type, placeholder = 'Search...', onChangeText, ...rest }: InputProps) => {
     return (
-      <View style={[styles.container, style, !!errorText && styles.errorBorder]}>
+      <View
+        style={[styles.container, style, !!errorText && styles.errorBorder, type === 'outlined' && styles.outlined]}>
         <TextInput
           style={styles.input}
           onChangeText={onChangeText}
-          placeholderTextColor={COLOR_SCHEME.gray}
+          placeholderTextColor={COLOR_SCHEME.darkGray}
           placeholder={placeholder}
           {...rest}
         />

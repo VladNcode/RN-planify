@@ -1,11 +1,12 @@
 import { StyleSheet } from 'react-native';
+
 import { COLOR_SCHEME } from '../../constants/colors';
 
 export const styles = StyleSheet.create({
-  title: {
-    fontSize: 24,
+  label: {
     color: COLOR_SCHEME.black,
-    fontWeight: '300',
-    marginTop: 42,
+    fontSize: 12,
+    fontWeight: '500',
+    marginBottom: 12,
   },
 });
