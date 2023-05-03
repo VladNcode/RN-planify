@@ -1,4 +1,3 @@
-import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { DrawerScreenProps } from '@react-navigation/drawer';
 import { DrawerContentComponentProps } from '@react-navigation/drawer/lib/typescript/src/types';
@@ -17,7 +16,7 @@ export type RootDrawerParamsList = {
 };
 
 export type RootTabParamsList = {
-  Home: { user: FirebaseAuthTypes.User };
+  Home: undefined;
   Tasks: undefined;
 };
 

@@ -17,7 +17,7 @@ export const Home = React.memo(({ navigation, route }: HomeProps) => {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <Header title="Home" />
-        <Title text={`Welcome ${route.params.user.displayName}!`} type="tasks" />
+        <Title text="Daily Tasks:" type="tasks" />
       </ScrollView>
       <PlusIcon />
     </SafeAreaView>
