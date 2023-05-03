@@ -1,7 +1,5 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { COLOR_SCHEME } from '../../constants/colors';
-
-const { width, height } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   container: {
@@ -12,8 +10,8 @@ export const styles = StyleSheet.create({
     borderRadius: 100,
     backgroundColor: COLOR_SCHEME.blue,
     position: 'absolute',
-    bottom: height * 0.02,
-    right: width * 0.06,
+    bottom: 0,
+    right: 0,
   },
   plus: {
     fontSize: 30,

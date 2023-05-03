@@ -5,7 +5,7 @@ import { Image, SafeAreaView, Text, TouchableOpacity } from 'react-native';
 
 import { RootDrawerParamsList } from '../../../constants/navigation.types';
 import { styles } from './styles';
-import { TasksTitle } from '../../../components/TasksTitle';
+import { Title } from '../../../components/Title';
 
 export const AddTask = React.memo(() => {
   const navigation = useNavigation<DrawerNavigationProp<RootDrawerParamsList>>();
@@ -15,7 +15,7 @@ export const AddTask = React.memo(() => {
       <TouchableOpacity onPress={() => navigation.goBack()}>
         <Image style={styles.backArrow} source={require('../../../assets/backArrow.png')} />
       </TouchableOpacity>
-      <TasksTitle text="Add New Task" />
+      <Title text="Add New Task" type="tasks" />
     </SafeAreaView>
   );
 });
