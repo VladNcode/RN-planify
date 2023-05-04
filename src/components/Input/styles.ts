@@ -8,10 +8,12 @@ export const styles = StyleSheet.create({
     backgroundColor: COLOR_SCHEME.lightGray,
     paddingHorizontal: 24,
     paddingVertical: 13,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   input: {
     paddingVertical: 0,
-    color: 'red',
+    color: COLOR_SCHEME.black,
   },
   errorText: {
     color: 'red',
@@ -25,5 +27,10 @@ export const styles = StyleSheet.create({
     backgroundColor: COLOR_SCHEME.white,
     borderWidth: 1,
     borderColor: COLOR_SCHEME.black,
+  },
+  icon: {
+    width: 16,
+    height: 16,
+    marginRight: 8,
   },
 });

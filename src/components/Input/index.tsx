@@ -1,6 +1,5 @@
 import React from 'react';
-import { Text, TextInputProps, View, ViewStyle } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
+import { Image, ScrollView, Text, TextInput, TextInputProps, ViewStyle } from 'react-native';
 
 import { COLOR_SCHEME } from '../../constants/colors';
 import { styles } from './styles';
@@ -11,13 +10,28 @@ interface InputProps extends TextInputProps {
   placeholder?: string;
   onChangeText?: (text: string) => void;
   type?: 'outlined';
+  icon?: boolean;
 }
 
 export const Input = React.memo(
-  ({ errorText = '', style = {}, type, placeholder = 'Search...', onChangeText, ...rest }: InputProps) => {
+  ({
+    errorText = '',
+    style = {},
+    type,
+    icon = false,
+    placeholder = 'Search...',
+    onChangeText,
+    ...rest
+  }: InputProps) => {
     return (
-      <View
-        style={[styles.container, style, !!errorText && styles.errorBorder, type === 'outlined' && styles.outlined]}>
+      <ScrollView
+        contentContainerStyle={[
+          styles.container,
+          style,
+          !!errorText && styles.errorBorder,
+          type === 'outlined' && styles.outlined,
+        ]}>
+        {icon && <Image style={styles.icon} source={require('../../assets/datePickerIcon.png')} />}
         <TextInput
           style={styles.input}
           onChangeText={onChangeText}
@@ -26,7 +40,7 @@ export const Input = React.memo(
           {...rest}
         />
         {errorText && <Text style={styles.errorText}>{errorText}</Text>}
-      </View>
+      </ScrollView>
     );
   },
 );

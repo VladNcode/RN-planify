@@ -55,7 +55,6 @@ export const Routes = React.memo(() => {
         <Tab.Screen
           name="Home"
           component={Home}
-          initialParams={{ user }}
           options={{
             tabBarIcon: ({ focused }) => (
               <Image
