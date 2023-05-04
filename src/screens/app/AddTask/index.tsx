@@ -1,6 +1,6 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, SafeAreaView, TouchableOpacity, View } from 'react-native';
 
 import { CustomButton } from '../../../components/Button';
@@ -10,12 +10,16 @@ import { Tags } from '../../../components/Tags';
 import { Title } from '../../../components/Title';
 import { RootDrawerParamsList } from '../../../constants/navigation.types';
 import { styles } from './styles';
+import { DatePickerItem } from '../../../components/DatePicker';
 
 export const AddTask = React.memo(() => {
   const navigation = useNavigation<DrawerNavigationProp<RootDrawerParamsList>>();
 
+  const [date, setDate] = useState(new Date());
+
   const onPress = () => {
     console.log('pressed');
+    console.log(date);
   };
 
   return (
@@ -38,6 +42,7 @@ export const AddTask = React.memo(() => {
 
       <View style={styles.deadlineContainer}>
         <Label text="Deadline" />
+        <DatePickerItem date={date} setDate={setDate} />
       </View>
 
       <CustomButton style={styles.button} onPress={onPress}>
