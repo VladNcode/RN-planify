@@ -31,7 +31,7 @@ export const Input = React.memo(
           !!errorText && styles.errorBorder,
           type === 'outlined' && styles.outlined,
         ]}>
-        {icon && <Image style={styles.icon} source={require('../../assets/datePickerIcon.png')} />}
+        {icon && <Image resizeMode="contain" style={styles.icon} source={require('../../assets/datePickerIcon.png')} />}
         <TextInput
           style={styles.input}
           onChangeText={onChangeText}

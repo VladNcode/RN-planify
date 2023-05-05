@@ -5,7 +5,7 @@ import { Input } from '../Input';
 
 interface DatePickerItemProps {
   date: Date;
-  setDate: React.Dispatch<React.SetStateAction<Date>>;
+  setDate: (newDate: Date) => void;
 }
 
 export const DatePickerItem = React.memo(({ date, setDate }: DatePickerItemProps) => {
@@ -18,6 +18,8 @@ export const DatePickerItem = React.memo(({ date, setDate }: DatePickerItemProps
         modal
         open={open}
         date={date}
+        minimumDate={new Date()}
+        mode="date"
         onConfirm={date => {
           setOpen(false);
           setDate(date);
