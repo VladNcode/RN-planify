@@ -8,9 +8,13 @@ export const styles = StyleSheet.create({
     backgroundColor: COLOR_SCHEME.lightGray,
     paddingHorizontal: 24,
     paddingVertical: 13,
+  },
+
+  containerWithIcon: {
     flexDirection: 'row',
     alignItems: 'center',
   },
+
   input: {
     paddingVertical: 0,
     color: COLOR_SCHEME.black,
