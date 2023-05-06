@@ -14,12 +14,14 @@ import {
   RootStackParamsList,
   RootTabParamsList,
 } from './constants/navigation.types';
+import { useAppDispatch, useAppSelector } from './hooks/reduxHooks';
 import { AddTask } from './screens/app/AddTask';
 import { Home } from './screens/app/Home';
 import { Tasks } from './screens/app/Tasks';
 import { Onboarding } from './screens/auth/Onboarding';
 import { SignIn } from './screens/auth/SignIn';
 import { SignUp } from './screens/auth/SignUp';
+import { selectUser, setFirebaseUser } from './store/userSlice';
 
 const Stack = createStackNavigator<RootStackParamsList>();
 const Drawer = createDrawerNavigator<RootDrawerParamsList>();
@@ -27,11 +29,17 @@ const Tab = createBottomTabNavigator<RootTabParamsList>();
 
 export const Routes = React.memo(() => {
   const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
+
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser);
+
+  console.log('redux user', user);
 
   // Handle user state changes
   const onAuthStateChanged = (user: FirebaseAuthTypes.User | null) => {
-    setUser(user);
+    console.log('authChanged');
+    dispatch(setFirebaseUser(user));
+
     if (initializing) {
       setInitializing(false);
     }
@@ -42,7 +50,9 @@ export const Routes = React.memo(() => {
   }, []);
 
   useEffect(() => {
-    return auth().onUserChanged(user => setUser(user));
+    return auth().onUserChanged(user => {
+      dispatch(setFirebaseUser(user));
+    });
   }, []);
 
   if (initializing) {

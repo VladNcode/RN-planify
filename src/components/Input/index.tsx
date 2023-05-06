@@ -28,8 +28,9 @@ export const Input = React.memo(
         contentContainerStyle={[
           styles.container,
           style,
-          !!errorText && styles.errorBorder,
           type === 'outlined' && styles.outlined,
+          icon && styles.containerWithIcon,
+          !!errorText && styles.errorBorder,
         ]}>
         {icon && <Image resizeMode="contain" style={styles.icon} source={require('../../assets/datePickerIcon.png')} />}
         <TextInput

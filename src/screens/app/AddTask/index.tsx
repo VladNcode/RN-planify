@@ -11,6 +11,8 @@ import { Label } from '../../../components/Label';
 import { Tags } from '../../../components/Tags';
 import { Title } from '../../../components/Title';
 import { RootDrawerParamsList, RootTabParamsList } from '../../../constants/navigation.types';
+import { useAppSelector } from '../../../hooks/reduxHooks';
+import { selectUser } from '../../../store/userSlice';
 import { styles } from './styles';
 
 interface TaskState {
@@ -23,6 +25,8 @@ interface TaskState {
 
 export const AddTask = React.memo(() => {
   const navigation = useNavigation<DrawerNavigationProp<RootDrawerParamsList & RootTabParamsList>>();
+
+  const user = useAppSelector(selectUser);
 
   const [event, updateEvent] = useReducer(
     (prev: TaskState, next: Partial<TaskState>) => {
@@ -48,6 +52,7 @@ export const AddTask = React.memo(() => {
   const onSubmit = () => {
     if (!event.title) {
       updateEvent({ titleError: 'Title is a required field' });
+
       return;
     } else {
       updateEvent({ titleError: '' });
@@ -57,7 +62,7 @@ export const AddTask = React.memo(() => {
 
     firestore()
       .collection('Tasks')
-      .doc('ABC')
+      .doc(user?.uid)
       .set({
         title: event.title,
         deadline: event.deadline,
