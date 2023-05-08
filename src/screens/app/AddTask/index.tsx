@@ -46,7 +46,7 @@ export const AddTask = React.memo(() => {
   };
 
   const reset = () => {
-    updateEvent({ deadline: new Date(), title: '', selectedTag: 'Urgent', titleError: '', loading: false });
+    updateEvent({ deadline: new Date(), title: '', selectedTag: '', titleError: '', loading: false });
   };
 
   const onSubmit = () => {
@@ -58,27 +58,38 @@ export const AddTask = React.memo(() => {
       updateEvent({ titleError: '' });
     }
 
-    updateEvent({ loading: true });
+    if (!user) {
+      Alert.alert('Please login to add tasks');
+      console.error('User not found');
+      return;
+    }
 
-    firestore()
-      .collection('Tasks')
-      .doc(user?.uid)
-      .set({
-        title: event.title,
-        deadline: event.deadline,
-        tag: event.selectedTag,
-      })
-      .then(() => {
-        navigation.navigate('Tasks');
-        console.log('user updated');
-      })
-      .catch(error => {
-        console.log(error);
-        Alert.alert(error.message);
-      })
-      .finally(() => {
-        reset();
-      });
+    if (user) {
+      updateEvent({ loading: true });
+
+      const userRef = firestore().collection('Users').doc(user.uid);
+
+      userRef
+        .collection('Tasks')
+        .add({
+          title: event.title,
+          deadline: event.deadline,
+          tag: event.selectedTag,
+          completed: false,
+        })
+
+        .then(() => {
+          navigation.navigate('Tasks');
+          console.log('Task added');
+        })
+        .catch(error => {
+          console.log(error);
+          Alert.alert(error.message);
+        })
+        .finally(() => {
+          reset();
+        });
+    }
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -92,6 +103,7 @@ export const AddTask = React.memo(() => {
         <View style={styles.inputContainer}>
           <Label text="Describe the task" />
           <Input
+            value={event.title}
             errorText={event.titleError}
             onChangeText={updateProp('title')}
             placeholder="Type here..."
