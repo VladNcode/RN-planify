@@ -75,6 +75,7 @@ export const AddTask = React.memo(() => {
           title: event.title,
           deadline: event.deadline,
           tag: event.selectedTag,
+          completed: false,
         })
 
         .then(() => {

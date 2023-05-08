@@ -7,9 +7,9 @@ import { PlusIcon } from '../../../components/PlusIcon';
 import { Title } from '../../../components/Title';
 import { HomeNavigationProp, HomeRoute } from '../../../constants/navigation.types';
 import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks';
+import { Task, setFirebaseTasks } from '../../../store/tasksSlice';
 import { selectUser } from '../../../store/userSlice';
 import { styles } from './styles';
-import { Task, selectTasks, setFirebaseTasks } from '../../../store/tasksSlice';
 
 interface HomeProps {
   navigation: HomeNavigationProp;
@@ -28,7 +28,7 @@ export const Home = React.memo(({ navigation, route }: HomeProps) => {
       const tasksArray: Task[] = [];
 
       docSnapshot.forEach(doc => {
-        tasksArray.push(doc.data() as Task);
+        tasksArray.push({ ...doc.data(), id: doc.id } as Task);
       });
 
       dispatch(setFirebaseTasks(tasksArray));

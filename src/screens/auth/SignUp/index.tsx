@@ -144,7 +144,7 @@ export const SignUp = React.memo(({ navigation }: { navigation: SignUpNavigation
         </View>
 
         <View style={styles.checkboxContainer}>
-          <Checkbox agreed={agreed} setAgreed={setAgreed} />
+          <Checkbox checked={agreed} setChecked={setAgreed} />
 
           <View style={styles.checkboxTextContainer}>
             <Text style={styles.checkboxText}>I agree to the </Text>

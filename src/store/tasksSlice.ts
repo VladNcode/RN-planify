@@ -3,10 +3,11 @@ import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from './store';
 
 export interface Task {
+  id: string;
+  completed: boolean;
   title: string;
   tag: string;
   deadline: { nanoseconds: number; seconds: number };
-  completed: boolean;
 }
 
 // Define a type for the slice state

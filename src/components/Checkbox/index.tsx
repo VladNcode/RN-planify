@@ -4,18 +4,18 @@ import { Pressable, View } from 'react-native';
 import { styles } from './styles';
 
 interface CheckboxProps {
-  agreed: boolean;
-  setAgreed: React.Dispatch<React.SetStateAction<boolean>>;
+  checked: boolean;
+  setChecked?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const Checkbox = React.memo(({ agreed, setAgreed }: CheckboxProps) => {
+export const Checkbox = React.memo(({ checked, setChecked }: CheckboxProps) => {
   const onPress = () => {
-    setAgreed(value => !value);
+    if (setChecked) setChecked(value => !value);
   };
 
   return (
-    <Pressable onPress={onPress} style={[styles.container, agreed && styles.checked]}>
-      {agreed && <View style={styles.innerSquare} />}
+    <Pressable onPress={onPress} style={[styles.container, checked && styles.checked]}>
+      {checked && <View style={styles.innerSquare} />}
     </Pressable>
   );
 });
