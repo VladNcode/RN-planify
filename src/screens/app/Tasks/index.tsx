@@ -42,12 +42,12 @@ export const Tasks = React.memo(() => {
         ListHeaderComponent={
           <>
             <Title text="To do Tasks" type="tasks" />
-            <View style={{ marginVertical: 10 }} />
-            <Tags selectedTag={selectedTag} selectTag={setSelectedTag} />
+            <View style={styles.marginView} />
+            <Tags selectedTag={selectedTag} selectTag={setSelectedTag} addAllOption />
           </>
         }
         keyExtractor={item => item.title}
-        data={!selectedTag ? tasks : tasks.filter(task => task.tag === selectedTag)}
+        data={!selectedTag || selectedTag === 'Show all' ? tasks : tasks.filter(task => task.tag === selectedTag)}
         renderItem={renderTask}
       />
       <PlusIcon />
