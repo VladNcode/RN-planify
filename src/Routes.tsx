@@ -33,11 +33,8 @@ export const Routes = React.memo(() => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
 
-  console.log('redux user', user);
-
   // Handle user state changes
   const onAuthStateChanged = (user: FirebaseAuthTypes.User | null) => {
-    console.log('authChanged');
     dispatch(setFirebaseUser(user));
 
     if (initializing) {

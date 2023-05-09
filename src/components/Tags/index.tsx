@@ -4,13 +4,23 @@ import { FlatList, Pressable, Text, View } from 'react-native';
 import { styles } from './styles';
 
 export const Tags = React.memo(
-  ({ selectTag, selectedTag }: { selectTag: (tag: string) => void; selectedTag: string }) => {
+  ({
+    selectTag,
+    selectedTag,
+    addAllOption = false,
+  }: {
+    selectTag: (tag: string) => void;
+    selectedTag: string;
+    addAllOption?: boolean;
+  }) => {
     const tags = [
       { label: 'Quick Task', value: 'quickTask' },
       { label: 'Urgent', value: 'urgent' },
       { label: 'Important', value: 'important' },
       { label: "Today's Tasks", value: 'todaysTasks' },
     ];
+
+    if (addAllOption) tags.unshift({ label: 'Show all', value: 'showAll' });
 
     return (
       <View style={styles.container}>

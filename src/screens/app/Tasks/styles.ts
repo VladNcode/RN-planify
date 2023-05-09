@@ -25,4 +25,7 @@ export const styles = StyleSheet.create({
     color: COLOR_SCHEME.black,
     marginTop: 24,
   },
+  marginView: {
+    marginVertical: 12,
+  },
 });
