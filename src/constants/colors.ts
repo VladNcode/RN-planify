@@ -6,4 +6,5 @@ export const COLOR_SCHEME = {
   gray: '#8B97A8',
   darkGray: '#707070',
   lightGray: '#E7E7E7',
+  lightRed: '#FFF4F4',
 };

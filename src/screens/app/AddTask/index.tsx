@@ -80,7 +80,6 @@ export const AddTask = React.memo(() => {
 
         .then(() => {
           navigation.navigate('Tasks');
-          console.log('Task added');
         })
         .catch(error => {
           console.log(error);
