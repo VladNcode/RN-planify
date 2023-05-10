@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Text, TouchableOpacity, ViewStyle } from 'react-native';
+import { Text, TouchableOpacity, ViewStyle } from 'react-native';
 
 import { styles } from './styles';
 

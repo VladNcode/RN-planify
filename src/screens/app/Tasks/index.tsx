@@ -2,11 +2,8 @@ import firestore from '@react-native-firebase/firestore';
 import React, { useState } from 'react';
 import { FlatList, ListRenderItemInfo, SafeAreaView, Text, View } from 'react-native';
 
-import { Checkbox } from '../../../components/Checkbox';
-import { Header } from '../../../components/Header';
-import { PlusIcon } from '../../../components/PlusIcon';
-import { Tags } from '../../../components/Tags';
-import { Title } from '../../../components/Title';
+import { Checkbox, Header, PlusIcon, Tags, Title } from '../../../components';
+
 import { useAppSelector } from '../../../hooks/reduxHooks';
 import { Task, selectTasks } from '../../../store/tasksSlice';
 import { selectUser } from '../../../store/userSlice';

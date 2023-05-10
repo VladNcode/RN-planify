@@ -4,13 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useReducer } from 'react';
 import { ActivityIndicator, Alert, Image, SafeAreaView, ScrollView, TouchableOpacity, View } from 'react-native';
 
-import { CustomButton } from '../../../components/Button';
-import { DatePickerItem } from '../../../components/DatePicker';
-import { Input } from '../../../components/Input';
-import { Label } from '../../../components/Label';
-import { Tags } from '../../../components/Tags';
-import { Title } from '../../../components/Title';
-import { RootDrawerParamsList, RootTabParamsList } from '../../../constants/navigation.types';
+import { CustomButton, DatePickerItem, Input, Label, Tags, Title } from '../../../components';
+import { RootDrawerParamsList, RootTabParamsList } from '../../../constants';
 import { useAppSelector } from '../../../hooks/reduxHooks';
 import { selectUser } from '../../../store/userSlice';
 import { styles } from './styles';

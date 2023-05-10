@@ -7,20 +7,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet } from 'react-native';
 
-import { CustomDrawerContent } from './components/DrawerContent';
-import {
-  CustomDrawerContentType,
-  RootDrawerParamsList,
-  RootStackParamsList,
-  RootTabParamsList,
-} from './constants/navigation.types';
+import { CustomDrawerContent } from './components';
+import { CustomDrawerContentType, RootDrawerParamsList, RootStackParamsList, RootTabParamsList } from './constants';
 import { useAppDispatch, useAppSelector } from './hooks/reduxHooks';
-import { AddTask } from './screens/app/AddTask';
-import { Home } from './screens/app/Home';
-import { Tasks } from './screens/app/Tasks';
-import { Onboarding } from './screens/auth/Onboarding';
-import { SignIn } from './screens/auth/SignIn';
-import { SignUp } from './screens/auth/SignUp';
+import { AddTask, Home, Onboarding, SignIn, SignUp, Tasks } from './screens';
 import { selectUser, setFirebaseUser } from './store/userSlice';
 
 const Stack = createStackNavigator<RootStackParamsList>();

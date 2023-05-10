@@ -1,6 +1,7 @@
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
+
 import { RootState } from './store';
 
 interface UserState {
