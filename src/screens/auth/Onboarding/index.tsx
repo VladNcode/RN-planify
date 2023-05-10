@@ -1,8 +1,8 @@
 import React from 'react';
 import { ImageBackground, SafeAreaView, Text, View } from 'react-native';
 
-import { CustomButton } from '../../../components/Button';
-import { OnboardingNavigationProp } from '../../../constants/navigation.types';
+import { CustomButton } from '../../../components';
+import { OnboardingNavigationProp } from '../../../constants';
 import { styles } from './styles';
 
 export const Onboarding = React.memo(({ navigation }: { navigation: OnboardingNavigationProp }) => {

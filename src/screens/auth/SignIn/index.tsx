@@ -2,12 +2,8 @@ import auth from '@react-native-firebase/auth';
 import React, { useReducer } from 'react';
 import { Alert, SafeAreaView, View } from 'react-native';
 
-import { CustomButton } from '../../../components/Button';
-import { FooterLink } from '../../../components/FooterLink';
-import { Input } from '../../../components/Input';
-import { Title } from '../../../components/Title';
-import { isFirebaseSignInError } from '../../../constants/firebase.helpers';
-import { SignInNavigationProp } from '../../../constants/navigation.types';
+import { CustomButton, FooterLink, Input, Title } from '../../../components';
+import { SignInNavigationProp, isFirebaseSignInError } from '../../../constants';
 import { styles } from './styles';
 
 interface SignInState {

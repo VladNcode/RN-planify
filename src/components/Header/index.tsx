@@ -1,9 +1,9 @@
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Image, Pressable, Text, View } from 'react-native';
 
-import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { RootDrawerParamsList } from '../../constants/navigation.types';
+import { RootDrawerParamsList } from '../../constants';
 import { styles } from './styles';
 
 interface HeaderProps {

@@ -2,14 +2,13 @@ import auth from '@react-native-firebase/auth';
 import React, { useState } from 'react';
 import { Alert, Linking, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
-import { CustomButton } from '../../../components/Button';
-import { Checkbox } from '../../../components/Checkbox';
-import { FooterLink } from '../../../components/FooterLink';
-import { Input } from '../../../components/Input';
-import { Title } from '../../../components/Title';
-import { PRIVACY_POLICY_LINK, TERMS_AND_CONDITIONS_LINK } from '../../../constants/links';
-import { SignUpNavigationProp } from '../../../constants/navigation.types';
-import { isFirebaseSignUpError } from '../../../constants/firebase.helpers';
+import { Checkbox, CustomButton, FooterLink, Input, Title } from '../../../components';
+import {
+  PRIVACY_POLICY_LINK,
+  SignUpNavigationProp,
+  TERMS_AND_CONDITIONS_LINK,
+  isFirebaseSignUpError,
+} from '../../../constants';
 import { styles } from './styles';
 
 interface SignUpState {

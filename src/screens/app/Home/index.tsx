@@ -1,15 +1,12 @@
 import firestore from '@react-native-firebase/firestore';
-import React, { useEffect, useState } from 'react';
-import { SafeAreaView, ScrollView, Text, View } from 'react-native';
-
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Header } from '../../../components/Header';
-import { PlusIcon } from '../../../components/PlusIcon';
-import { StatusCard } from '../../../components/StatusCard';
-import { Title } from '../../../components/Title';
-import { RootTabParamsList } from '../../../constants/navigation.types';
+
+import { Header, PlusIcon, StatusCard, Title } from '../../../components';
+import { RootTabParamsList } from '../../../constants';
 import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks';
 import { Task, selectTasks, setFirebaseTasks } from '../../../store/tasksSlice';
 import { selectUser } from '../../../store/userSlice';

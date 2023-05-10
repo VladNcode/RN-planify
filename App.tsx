@@ -5,7 +5,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 
 import { Routes } from './src/Routes';
-import { COLOR_SCHEME } from './src/constants/colors';
+import { COLOR_SCHEME } from './src/constants';
 import { store } from './src/store/store';
 
 const theme = {

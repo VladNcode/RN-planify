@@ -1,10 +1,9 @@
 import auth from '@react-native-firebase/auth';
-import React from 'react';
-import { Linking, Text, TouchableOpacity, ViewStyle } from 'react-native';
-
 import { DrawerContentScrollView } from '@react-navigation/drawer';
-import { PRIVACY_POLICY_LINK, TERMS_AND_CONDITIONS_LINK } from '../../constants/links';
-import { CustomDrawerContentType } from '../../constants/navigation.types';
+import React from 'react';
+import { Linking, Text, TouchableOpacity } from 'react-native';
+
+import { CustomDrawerContentType, PRIVACY_POLICY_LINK, TERMS_AND_CONDITIONS_LINK } from '../../constants';
 import { styles } from './styles';
 
 export const CustomDrawerContent = React.memo((props: CustomDrawerContentType) => {

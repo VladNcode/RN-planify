@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, ScrollView, Text, TextInput, TextInputProps, ViewStyle } from 'react-native';
 
-import { COLOR_SCHEME } from '../../constants/colors';
+import { COLOR_SCHEME } from '../../constants';
 import { styles } from './styles';
 
 interface InputProps extends TextInputProps {

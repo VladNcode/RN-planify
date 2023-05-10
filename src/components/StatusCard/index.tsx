@@ -1,9 +1,9 @@
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Pressable, Text } from 'react-native';
 
-import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { RootTabParamsList } from '../../constants/navigation.types';
+import { RootTabParamsList } from '../../constants';
 import { styles } from './styles';
 
 interface StatusCardProps {
